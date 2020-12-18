@@ -8,7 +8,7 @@ import wikipedia
 
 listener = sr.Recognizer()
 
-counter = 0
+
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice',voices[1].id)
@@ -16,15 +16,11 @@ engine.setProperty('voice',voices[1].id)
 def speak(text):
 
     engine.say(text)
-    while counter>3:
-        break
-    else:
-        engine.runAndWait()
+    engine.runAndWait()
 
 def command_center():
     try:
         speak('Hello welcome to MyAlexa')
-        counter=counter+1
         with sr.Microphone() as source:
             speak('I am ready to listen')
             voice = listener.listen(source)
@@ -32,12 +28,6 @@ def command_center():
             command = command.lower()
             if 'alexa' in command:
                 command = command.replace('alexa','')    
-#   if not command:
-#         if counter<3:
-#             speak('Ask me something') 
-#             run_command()
-#         else:
-#             speak('Thank you Please Try after sometimes')
     except:
         pass
     return command
@@ -55,7 +45,7 @@ def run_command():
         pywhatkit.playonyt(song)
     elif 'joke' in command:
         speak(pyjokes.get_joke())
-    elif 'who' or 'what' in command:
+    elif 'who' in command:
         command = command.replace('who is','')
         command = command.replace('what is','')
         speak(wikipedia.summary(command,2))
