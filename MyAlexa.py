@@ -3,8 +3,9 @@ import pyttsx3
 import pyaudio
 import datetime
 import pywhatkit
-import pyjokes
+#import pyjokes
 import wikipedia
+import pyjokes
 
 listener = sr.Recognizer()
 
