@@ -1,25 +1,18 @@
-name: 'GS Commit Message Checker'
-description: 'Check the commit message against a regex pattern'
-author: 'Akilan K'
-inputs:
-  pattern:
-    description: 'A regex pattern to check if a commit message is valid.'
-    required: true
-  error:
-    description: 'A error message which will be returned in case of an error.'
-    required: true
-  excludeTitle:
-  checkAllCommitMessages:
-    description: 'Setting this input to true will check all Pull Request commits'
-    required: false
-    default: 'false'
-  accessToken:
-    description: 'you must provide GITHUB_TOKEN to this input if checkAllCommitMessages is true'
-    required: false
-    default: 'false'  
-runs:
-  using: node16
-  main: dist/index.js
-branding:
-  icon: 'check'
-  color: 'blue'
+name: 'Commit Message Check'
+on:
+  push:
+    branches:
+      - master
+      - 'releases/*'
+
+jobs:
+  check-commit-message:
+    name: Check Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Commit Type
+        uses: gsactions/commit-message-checker@v2
+        with:
+          pattern: '(PROJ-[0-9]+)'
+          flags: 'gm'
+          error: 'You must add atlease one jira to push the code'
